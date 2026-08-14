@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Interall — nástroje</title>
+<link rel="stylesheet" href="spolecne/design.css" />
+<style>
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  .hlavicka { padding: 30px 26px 0; }
+  .obal { max-width: 940px; margin: 0 auto; width: 100%; }
+  .hlavicka h1 {
+    margin: 6px 0 8px; font-size: 2.1rem; font-weight: 680;
+    letter-spacing: -.025em; text-wrap: balance;
+  }
+  .hlavicka p { margin: 0; color: var(--ink-2); max-width: 60ch; }
+
+  .mrizka {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+    gap: 14px; padding: 28px 26px 40px;
+  }
+  .karta {
+    display: flex; flex-direction: column; gap: 7px;
+    background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+    padding: 20px 22px 22px; text-decoration: none; color: inherit;
+  }
+  .karta:hover { border-color: var(--accent); }
+  .karta h2 { margin: 0; font-size: 1.16rem; font-weight: 660; letter-spacing: -.012em; }
+  .karta p { margin: 0; font-size: .92rem; color: var(--ink-2); line-height: 1.5; flex: 1 1 auto; }
+  .karta .jdi { margin-top: 10px; font-size: .92rem; font-weight: 640; color: var(--accent); }
+
+  .karta.chystase { border-style: dashed; cursor: default; }
+  .karta.chystase:hover { border-color: var(--line); }
+  .karta.chystase h2, .karta.chystase p { color: var(--ink-3); }
+
+  .pata { margin-top: auto; padding: 0 26px 30px; }
+</style>
+</head>
+<body>
+
+<header class="hlavicka">
+  <div class="obal">
+    <p class="spec">Interall</p>
+    <h1>Nástroje pro práci se zákazníkem</h1>
+    <p>Každý nástroj běží samostatně — otevřete jen ten, který právě potřebujete.
+       Nic se nikam neodesílá, rozdělaná práce zůstává v prohlížeči daného zařízení.</p>
+  </div>
+</header>
+
+<main class="mrizka obal">
+
+  <a class="karta" href="pruvodce/index.html">
+    <p class="spec">První schůzka</p>
+    <h2>Průvodce rekonstrukcí</h2>
+    <p>Projde se zákazníkem osm etap rekonstrukce bytu, ukáže rozdíly mezi stupni
+       výbavy a průběžně počítá cenu. Na konci vyjede souhrn k vytištění.</p>
+    <span class="jdi">Otevřít →</span>
+  </a>
+
+  <div class="karta chystase">
+    <p class="spec">Připravuje se</p>
+    <h2>Další nástroj</h2>
+    <p>Místo pro navazující aplikaci. Založí se jako nová složka vedle
+       <code>pruvodce/</code> a převezme společný vzhled i pomocné funkce.</p>
+  </div>
+
+</main>
+
+<footer class="pata obal">
+  <div class="poznamka">
+    <b>Ceny v průvodci jsou zatím zástupné.</b> Slouží k tomu, aby bylo vidět, jak se
+    rozpočet chová při výběru mezi stupni. Skutečný ceník se doplní do souboru
+    <code>pruvodce/cenik.js</code>.
+  </div>
+</footer>
+
+</body>
+</html>

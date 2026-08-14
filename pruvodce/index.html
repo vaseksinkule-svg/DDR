@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Průvodce rekonstrukcí — Interall</title>
+<link rel="stylesheet" href="../spolecne/design.css" />
+<link rel="stylesheet" href="pruvodce.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <header class="top">
+    <span class="brand"><b>Interall</b><span>Rekonstrukce bytu</span></span>
+    <span class="grow"></span>
+    <span class="klient" id="klientBox"></span>
+    <button class="btn tise noprint" id="btnReset" type="button">Nová schůzka</button>
+  </header>
+
+  <div class="mid">
+    <nav class="rail" id="rail"><h2 class="spec">Etapy rekonstrukce</h2></nav>
+    <main class="stage" id="stage"></main>
+  </div>
+
+  <footer class="dole">
+    <span class="celkem">
+      <span class="spec" id="celkemPopis">Odhad celkem s DPH</span>
+      <span class="c" id="celkemC">—</span>
+    </span>
+    <span class="grow"></span>
+    <button class="btn" id="btnZpet" type="button">Zpět</button>
+    <button class="btn hlavni" id="btnDal" type="button">Pokračovat</button>
+  </footer>
+
+</div>
+
+<!-- Pořadí je závazné: základ, pak ceník, pak logika. -->
+<script src="../spolecne/zaklad.js"></script>
+<script src="cenik.js"></script>
+<script src="pruvodce.js"></script>
+</body>
+</html>
