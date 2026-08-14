@@ -31,6 +31,13 @@
   --brass:       #8f6420;
   --brass-soft:  #f6efe1;
 
+  /* stavy — oddělené od akcentu i od mosazi vyhrazené pro částky */
+  --sem-ceka:     #6b6559;   --sem-ceka-bg:  #eceae4;
+  --sem-jede:     #1f5573;   --sem-jede-bg:  #e3edf4;
+  --sem-ok:       #1f6b45;   --sem-ok-bg:    #e3f0e8;
+  --sem-pozor:    #a34b12;   --sem-pozor-bg: #f9ebdf;
+  --sem-zle:      #93251f;   --sem-zle-bg:   #f8e4e2;
+
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --fig:  ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
 
@@ -56,6 +63,12 @@
     --accent-line: #2f6354;
     --brass:       #d5a659;
     --brass-soft:  #2c2417;
+
+    --sem-ceka:     #a39c8e;   --sem-ceka-bg:  #2b2720;
+    --sem-jede:     #6fb2dd;   --sem-jede-bg:  #162934;
+    --sem-ok:       #63c48d;   --sem-ok-bg:    #14291d;
+    --sem-pozor:    #e79a55;   --sem-pozor-bg: #2f2216;
+    --sem-zle:      #ef8078;   --sem-zle-bg:   #301a18;
     --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.4);
   }
 }
@@ -76,6 +89,12 @@
   --accent-line: #2f6354;
   --brass:       #d5a659;
   --brass-soft:  #2c2417;
+
+  --sem-ceka:     #a39c8e;   --sem-ceka-bg:  #2b2720;
+  --sem-jede:     #6fb2dd;   --sem-jede-bg:  #162934;
+  --sem-ok:       #63c48d;   --sem-ok-bg:    #14291d;
+  --sem-pozor:    #e79a55;   --sem-pozor-bg: #2f2216;
+  --sem-zle:      #ef8078;   --sem-zle-bg:   #301a18;
   --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.4);
 }
 
@@ -142,3 +161,31 @@ button, input, select { font: inherit; color: inherit; }
   padding: 14px 18px; font-size: .89rem; line-height: 1.55; color: var(--ink-2); max-width: 74ch;
 }
 .poznamka b { color: var(--ink); }
+
+/* ============================================================
+   ODZNAK STAVU
+   Stav musí být čitelný tvarem i barvou, ne jen barvou.
+   ============================================================ */
+.odznak {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .78rem; font-weight: 650; letter-spacing: .01em;
+  border-radius: var(--r); padding: 3px 9px; white-space: nowrap;
+  background: var(--sem-ceka-bg); color: var(--sem-ceka);
+}
+.odznak.jede  { background: var(--sem-jede-bg);  color: var(--sem-jede); }
+.odznak.ok    { background: var(--sem-ok-bg);    color: var(--sem-ok); }
+.odznak.pozor { background: var(--sem-pozor-bg); color: var(--sem-pozor); }
+.odznak.zle   { background: var(--sem-zle-bg);   color: var(--sem-zle); }
+.odznak .tecka { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: 0 0 7px; }
+
+/* ============================================================
+   UKAZATEL POSTUPU
+   ============================================================ */
+.pruh {
+  height: 7px; border-radius: 4px; overflow: hidden;
+  background: var(--panel-3); border: 1px solid var(--line-2);
+}
+.pruh span { display: block; height: 100%; background: var(--accent); min-width: 2px; }
+.pruh span.ok    { background: var(--sem-ok); }
+.pruh span.pozor { background: var(--sem-pozor); }
+.pruh span.zle   { background: var(--sem-zle); }

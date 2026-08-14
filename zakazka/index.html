@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Zakázka — Interall</title>
+<link rel="stylesheet" href="../spolecne/design.css" />
+<link rel="stylesheet" href="zakazka.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <header class="top">
+    <span class="znacka"><b>Interall</b><span>Sestavení zakázky</span></span>
+    <nav class="pohledy">
+      <button data-pohled="prehled" type="button">Přehled</button>
+      <button data-pohled="nakup" type="button">Nákup</button>
+      <button data-pohled="prace" type="button">Práce</button>
+    </nav>
+    <span class="grow"></span>
+    <button class="btn" data-predani="1" type="button">Předat kolegovi</button>
+    <button class="btn tise" data-reset="1" type="button">Ukázková data</button>
+    <a class="domu" href="../index.html">Nástroje ↗</a>
+  </header>
+
+  <div class="zahlavi" id="hlavicka"></div>
+
+  <main id="obsah"></main>
+
+</div>
+
+<dialog id="dlg"></dialog>
+
+<!-- Pořadí je závazné: základ, pak číselníky a data, pak logika. -->
+<script src="../spolecne/zaklad.js"></script>
+<script src="data.js"></script>
+<script src="zakazka.js"></script>
+</body>
+</html>

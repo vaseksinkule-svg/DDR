@@ -46,3 +46,23 @@ function nactiStav(klic, vychozi) {
   } catch (e) {}
   return vychozi;
 }
+
+/* ---------- data ---------- */
+/* Vstup i výstup je ISO tvar (2026-08-14), protože se v něm dá
+   porovnávat i řadit jako v textu. Zobrazuje se česky. */
+function dnesISO() { return new Date().toISOString().slice(0, 10); }
+
+function datumCesky(iso) {
+  if (!iso) return "—";
+  const [r, m, d] = String(iso).slice(0, 10).split("-");
+  return `${Number(d)}. ${Number(m)}. ${r}`;
+}
+
+/* Kolik dní zbývá do data. Záporné číslo znamená po termínu. */
+function dniDo(iso) {
+  if (!iso) return null;
+  return Math.round((Date.parse(String(iso).slice(0, 10)) - Date.parse(dnesISO())) / 86400000);
+}
+
+/* Slovo ve správném tvaru po číslovce: 1 / 2–4 / 5 a víc. */
+function tvar(n, jeden, dva, pet) { return n === 1 ? jeden : (n >= 2 && n <= 4 ? dva : pet); }

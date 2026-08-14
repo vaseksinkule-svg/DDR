@@ -11,6 +11,7 @@ neodesílá.
 | Nástroj | Kde | K čemu je |
 |---|---|---|
 | Průvodce rekonstrukcí | `pruvodce/` | První schůzka se zákazníkem — osm etap rekonstrukce bytu, výběr stupně výbavy a průběžný rozpočet |
+| Sestavení zakázky | `zakazka/` | Průběh zakázky pro celou firmu — nákup, faktury, skutečné ceny a úkoly na stavbě s kontrolou, že je na ně materiál |
 
 ## Jak to otevřít
 
@@ -31,6 +32,11 @@ pruvodce/
   pruvodce.css        rozvržení obrazovky průvodce
   cenik.js            VŠECHNY ceny a nabídka — jediné místo, kde se mění
   pruvodce.js         logika a vykreslení
+zakazka/
+  index.html          stránka zakázky
+  zakazka.css         rozvržení obrazovky zakázky
+  data.js             číselníky (kategorie, místnosti, stavy) a ukázková zakázka
+  zakazka.js          logika a vykreslení
 nastroje/
   sestavit.mjs        sloučí nástroj do jednoho souboru ke sdílení
 ```
@@ -106,3 +112,46 @@ vypadá a chová se jako ten stávající.
 
 Pořadí skriptů je závazné — `zaklad.js` musí být první, protože z něj
 ostatní soubory berou formátování a ukládání.
+
+## Sestavení zakázky
+
+Nástroj drží celou zakázku na jednom místě: co se nakupuje, co už dorazilo,
+co to doopravdy stálo a co se právě dělá na stavbě.
+
+**Položka** je základní jednotka nákupu. Prochází cestou
+Návrh → Schváleno → Objednáno → Na skladě → Zabudováno. Nese plánovanou
+cenu, dodavatele, číslo objednávky a slíbený termín. Skutečná cena se
+počítá ze zapsaných faktur, takže je vidět odchylka od rozpočtu.
+
+**Úkol** je práce na stavbě. Má pořadí, termín, postup pro mistra a hlavně
+**seznam položek, které potřebuje**. Z jejich stavu se odvodí, jestli se dá
+na úkol nastoupit:
+
+| Odznak | Znamená |
+|---|---|
+| Materiál připraven | všechno potřebné je na skladě |
+| Čeká na dodání | je to objednané, ale ještě nedorazilo |
+| Chybí objednat | někdo zapomněl, a bez zásahu se práce zastaví |
+
+Tohle je jádro celého nástroje. Zapomenutá mikrovlnka se ukáže jako červený
+odznak u montáže kuchyně dřív, než na ni parta nastoupí.
+
+Zakázka se dá krájet dvěma způsoby najednou — podle kategorie (kdo to shání)
+i podle místnosti. Na přehledu jsou oba pohledy pod sebou.
+
+Po dokončení úkolu se zapíší odpracované hodiny. Vedle odhadu se tak
+postupně sbírají čísla, o která se dá opřít odhad příští zakázky.
+
+### Co nástroj zatím neumí
+
+Běží jen v prohlížeči jednoho zařízení, takže **si data mezi lidmi
+nepředává sám**. Tlačítko *Předat kolegovi* zobrazí zakázku jako text,
+který se zkopíruje a pošle — kolega ho vloží u sebe. Je to přechodné
+řešení, ne cíl.
+
+Skutečně sdílený nástroj potřebuje server s databází a přihlašování. Datový
+model v `zakazka/data.js` je připravený na to, aby se přesunul beze změny;
+rozhodnout je potřeba provoz, přístupová práva a zálohování.
+
+Ze stejného důvodu se **nedají nahrávat soubory faktur**. Zapisuje se číslo
+a částka, což stačí na výpočet skutečné ceny.
