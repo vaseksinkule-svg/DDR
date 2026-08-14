@@ -1,0 +1,144 @@
+/* ============================================================
+   Interall — sdílený vizuální základ
+   Tokeny a společné komponenty pro všechny aplikace Interall.
+   Každá aplikace k tomu přidá vlastní soubor s rozvržením.
+
+   Navrženo pro tablet, u kterého sedí pracovník se zákazníkem:
+   velké dotykové cíle a text čitelný na délku paže.
+
+   Barvy vychází z materiálů stavby: vápenná omítka, grafit,
+   borovicová zeleň, mosaz vyhrazená pro částky.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  --ground:      #f1efea;
+  --panel:       #ffffff;
+  --panel-2:     #f8f7f4;
+  --panel-3:     #edeae4;
+  --ink:         #221f1b;
+  --ink-2:       #5b564e;
+  --ink-3:       #8a847a;
+  --line:        #ded9d0;
+  --line-2:      #ebe7e0;
+
+  --accent:      #1f5f4b;
+  --accent-ink:  #ffffff;
+  --accent-soft: #e2ede8;
+  --accent-line: #9dc2b4;
+
+  --brass:       #8f6420;
+  --brass-soft:  #f6efe1;
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fig:  ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --r: 3px;
+  --shadow: 0 1px 2px rgba(34,31,27,.06), 0 10px 28px rgba(34,31,27,.07);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #17150f;
+    --panel:       #201d17;
+    --panel-2:     #282419;
+    --panel-3:     #2f2b21;
+    --ink:         #efe9dd;
+    --ink-2:       #b5ada0;
+    --ink-3:       #857d70;
+    --line:        #3b352a;
+    --line-2:      #2d2820;
+    --accent:      #62c1a1;
+    --accent-ink:  #0f2019;
+    --accent-soft: #17302a;
+    --accent-line: #2f6354;
+    --brass:       #d5a659;
+    --brass-soft:  #2c2417;
+    --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #17150f;
+  --panel:       #201d17;
+  --panel-2:     #282419;
+  --panel-3:     #2f2b21;
+  --ink:         #efe9dd;
+  --ink-2:       #b5ada0;
+  --ink-3:       #857d70;
+  --line:        #3b352a;
+  --line-2:      #2d2820;
+  --accent:      #62c1a1;
+  --accent-ink:  #0f2019;
+  --accent-soft: #17302a;
+  --accent-line: #2f6354;
+  --brass:       #d5a659;
+  --brass-soft:  #2c2417;
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.4);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.fig { font-family: var(--fig); font-variant-numeric: tabular-nums; }
+
+/* popisky technického výkresu */
+.spec {
+  font-size: .69rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ============================================================
+   TLAČÍTKA
+   ============================================================ */
+.btn {
+  font: inherit; font-size: .97rem; font-weight: 650;
+  background: var(--panel); color: var(--ink);
+  border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 13px 22px; cursor: pointer; min-height: 50px; white-space: nowrap;
+}
+.btn:hover { border-color: var(--ink-3); background: var(--panel-2); }
+.btn.hlavni { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.hlavni:hover { filter: brightness(1.09); background: var(--accent); }
+.btn.tise { border-color: transparent; background: none; color: var(--ink-2); padding: 13px 12px; }
+.btn.tise:hover { color: var(--ink); background: var(--panel-2); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ============================================================
+   FORMULÁŘOVÁ POLE
+   ============================================================ */
+.pole { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 26px; }
+.pole label { display: flex; flex-direction: column; gap: 6px; }
+.pole input, .pole select {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 12px 13px; font-size: 1rem; width: 100%;
+}
+.pole input:focus, .pole select:focus { border-color: var(--accent); }
+
+/* ============================================================
+   POZNÁMKA POD ČAROU
+   ============================================================ */
+.poznamka {
+  margin-top: 20px; background: var(--brass-soft);
+  border-left: 3px solid var(--brass); border-radius: 0 var(--r) var(--r) 0;
+  padding: 14px 18px; font-size: .89rem; line-height: 1.55; color: var(--ink-2); max-width: 74ch;
+}
+.poznamka b { color: var(--ink); }
