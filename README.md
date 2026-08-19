@@ -156,6 +156,20 @@ rozhodnout je potřeba provoz, přístupová práva a zálohování.
 Ze stejného důvodu se **nedají nahrávat soubory faktur**. Zapisuje se číslo
 a částka, což stačí na výpočet skutečné ceny.
 
+### Dva vzhledy
+
+Nástroje mají světlý vzhled a vedle něj **šedý ve stylu skořepiny starého
+Game Boye** — teplá světlá šeď s olivovým nádechem a tmavým textem. Nasadí
+se, když má zařízení zapnutý tmavý režim.
+
+Není to tmavý vzhled v obvyklém smyslu; obě varianty jsou světlé, jen jinak
+laděné. Kdo pracuje večer potmě, tmavou obrazovku nedostane.
+
+Barvy jsou tokeny v `spolecne/design.css` a jsou tam třikrát: jednou pro
+světlý vzhled, jednou pro systémový tmavý režim a jednou pro ruční přepnutí.
+**Poslední dvě musí zůstat totožné**, jinak se vzhled rozejde podle toho,
+jak se k němu uživatel dostal.
+
 ### Pás kompletování
 
 V záhlaví vedle data předání je celá zakázka na jednom pásu. Každý dílek je
