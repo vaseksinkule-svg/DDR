@@ -106,7 +106,7 @@ function viewHlavicka() {
       <span>${esc(Z.zakaznik)} · ${esc(Z.adresa)}</span>
     </span>
     <span class="grow"></span>
-    ${viewPas()}
+    ${viewCisla()}
     <span class="termin">
       <span class="spec">Předání</span>
       <b class="fig">${datumCesky(Z.predani)}</b>
@@ -116,42 +116,20 @@ function viewHlavicka() {
     </span>`;
 }
 
-/* Celé kompletování na jednom pásu. Šířka dílku odpovídá plánované
-   délce úkolu, barva jeho stavu. Svislice ukazuje, kde jsme dnes —
-   jestli je barevná část vlevo od ní, jede zakázka podle plánu. */
-function viewPas() {
-  const ukoly = Z.ukoly.slice().sort((a, b) => a.poradi - b.poradi);
-  if (!ukoly.length) return "";
+/* Peníze zakázky v liště, aby byly vidět i v Nákupu a v Práci.
+   Čtyři čísla, žádné popisky navíc — na vysvětlování je Přehled. */
+function viewCisla() {
+  const p = penize();
+  const stat = (popisek, hodnota, tr) =>
+    `<span class="stat"><span class="spec">${esc(popisek)}</span>` +
+    `<b class="fig ${tr || ""}">${esc(hodnota)}</b></span>`;
 
-  const delka = u => {
-    const d = (u.od && u.do) ? Math.round((Date.parse(u.do) - Date.parse(u.od)) / 86400000) + 1 : 1;
-    return Math.max(1, d);
-  };
-  const celkem = ukoly.reduce((a, u) => a + delka(u), 0);
-
-  const dily = ukoly.map(u => {
-    const tr = u.stav === "hotovo" ? "hotovo"
-             : poTerminu(u) ? "pozde"
-             : u.stav === "probiha" ? "probiha" : "ceka";
-    const st = STAV_UKOLU[u.stav] || STAVY_UKOLU[0];
-    const titulek = `${u.poradi}. ${u.nazev} — ${poTerminu(u) ? "po termínu" : st.nazev}`;
-    return `<i class="${tr}" style="width:${(delka(u) / celkem * 100).toFixed(2)}%" title="${esc(titulek)}"></i>`;
-  }).join("");
-
-  /* poloha dneška podle plánu, ne podle skutečnosti */
-  const zac = Date.parse(ukoly[0].od || Z.zahajeni);
-  const kon = Date.parse(ukoly[ukoly.length - 1].do || Z.predani);
-  const dnes = Date.parse(dnesISO());
-  const podil = kon > zac ? Math.min(1, Math.max(0, (dnes - zac) / (kon - zac))) : 0;
-
-  const hotovo = ukoly.filter(u => u.stav === "hotovo").length;
-  const zbyva = ukoly.length - hotovo;
-
-  return `<span class="diagram" title="Průběh celé zakázky podle plánu">
-      <span class="spec">Kompletování</span>
-      <span class="pas">${dily}<i class="ted" style="left:${(podil * 100).toFixed(2)}%"></i></span>
-      <span class="popis">${hotovo} z ${ukoly.length} hotovo${zbyva ? ` · zbývá ${zbyva} ${tvar(zbyva, "úkol", "úkoly", "úkolů")}` : ""}</span>
-    </span>`;
+  return `<span class="staty">
+    ${stat("Rozpočet", kc(p.plan))}
+    ${stat("Vyfakturováno", kc(p.fakt))}
+    ${stat("Odchylka", (p.odchylka >= 0 ? "+" : "−") + kc(Math.abs(p.odchylka)), p.odchylka > 0 ? "zle" : "ok")}
+    ${stat("Zbývá objednat", kc(p.planNeobjednanych))}
+  </span>`;
 }
 
 /* ---------- PŘEHLED ---------- */
@@ -195,14 +173,6 @@ function viewPrehled() {
   const dalsi = Z.ukoly.filter(u => u.stav !== "hotovo").sort((a, b) => a.poradi - b.poradi).slice(0, 4);
 
   return `<div class="stranka">
-    <div class="cisla">
-      ${dlazdice("Rozpočet zakázky", kc(p.plan), zive.length + " " + tvar(zive.length, "položka", "položky", "položek"))}
-      ${dlazdice("Vyfakturováno", kc(p.fakt), Math.round(p.plan ? p.fakt / p.plan * 100 : 0) + " % rozpočtu")}
-      ${dlazdice("Odchylka od plánu", (p.odchylka >= 0 ? "+" : "−") + kc(Math.abs(p.odchylka)),
-                 "na vyfakturovaných položkách", p.odchylka > 0 ? "zle" : "ok")}
-      ${dlazdice("Zbývá objednat", kc(p.planNeobjednanych), naObjednani.length + " " + tvar(naObjednani.length, "položka", "položky", "položek"))}
-    </div>
-
     ${vystrahy.length ? `<div class="vystrahy">${vystrahy.map(v => `
       <button class="vystraha ${v.tr}" data-jdi="${v.kam}" type="button">
         <b class="fig">${v.n}</b><span>${esc(v.t(v.n))}</span></button>`).join("")}</div>`
@@ -228,13 +198,6 @@ function viewPrehled() {
   </div>`;
 }
 
-function dlazdice(popisek, hodnota, pod, tr) {
-  return `<div class="dlazdice">
-    <span class="spec">${esc(popisek)}</span>
-    <b class="fig ${tr || ""}">${esc(hodnota)}</b>
-    <span class="mala">${esc(pod)}</span>
-  </div>`;
-}
 
 /* ---------- NÁKUP ---------- */
 function viewNakup() {

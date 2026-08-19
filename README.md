@@ -170,12 +170,8 @@ světlý vzhled, jednou pro systémový tmavý režim a jednou pro ruční přep
 **Poslední dvě musí zůstat totožné**, jinak se vzhled rozejde podle toho,
 jak se k němu uživatel dostal.
 
-### Pás kompletování
+### Peníze v liště
 
-V záhlaví vedle data předání je celá zakázka na jednom pásu. Každý dílek je
-jeden úkol, jeho šířka odpovídá plánované délce a barva stavu — zelená
-hotovo, modrá probíhá, červená po termínu, prázdná čeká. Svislá čára
-ukazuje, kde jsme dnes podle plánu.
-
-Čte se to jedním pohledem: pokud barevná část končí vlevo od čáry, zakázka
-se opozdila.
+Rozpočet, vyfakturováno, odchylka a zbývá objednat jsou v horní liště, ne
+na Přehledu. Jsou tak vidět i v Nákupu a v Práci — člověk nemusí přepínat
+pohled, aby zjistil, kolik zakázka stojí.

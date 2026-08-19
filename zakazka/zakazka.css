@@ -9,6 +9,10 @@
 body { font-size: 15px; }
 
 .app { display: grid; grid-template-rows: auto auto 1fr; min-height: 100vh; }
+/* Položka gridu se bez tohohle nesmí zúžit pod šířku svého obsahu —
+   široká tabulka Nákupu by pak roztáhla celou stránku místo toho,
+   aby se posouvala uvnitř svého rámečku. */
+.app > * { min-width: 0; }
 
 /* ---------- horní lišta ---------- */
 .top {
@@ -40,23 +44,19 @@ body { font-size: 15px; }
 .zak { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .zak b { font-size: 1.05rem; font-weight: 660; letter-spacing: -.012em; }
 .zak span { font-size: .85rem; color: var(--ink-2); }
-/* ---------- pás kompletování ---------- */
-.diagram { display: flex; flex-direction: column; gap: 4px; min-width: 190px; max-width: 300px; flex: 1 1 210px; }
-.pas {
-  position: relative; display: flex; height: 11px;
-  border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
-  background: var(--panel-3);
+/* ---------- peníze v liště ---------- */
+.staty { display: flex; flex-wrap: wrap; }
+.stat {
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 0 18px; border-left: 1px solid var(--line);
 }
-.pas i { display: block; height: 100%; box-shadow: inset -1px 0 0 var(--panel); }
-.pas i.hotovo  { background: var(--sem-ok); }
-.pas i.probiha { background: var(--sem-jede); }
-.pas i.pozde   { background: var(--sem-zle); }
-.pas i.ceka    { background: transparent; }
-.pas i.ted {
-  position: absolute; top: -2px; bottom: -2px; width: 2px; margin-left: -1px;
-  background: var(--ink); box-shadow: none; border-radius: 1px;
+.stat:first-child { border-left: 0; padding-left: 0; }
+.stat b {
+  font-size: 1.05rem; font-weight: 700; letter-spacing: -.014em;
+  color: var(--brass); white-space: nowrap;
 }
-.diagram .popis { font-size: .76rem; color: var(--ink-3); }
+.stat b.ok  { color: var(--sem-ok); }
+.stat b.zle { color: var(--sem-zle); }
 
 .termin { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 .termin b { font-size: 1rem; font-weight: 700; }
@@ -70,18 +70,7 @@ body { font-size: 15px; }
 .blok { margin-top: 30px; }
 .blok h2 { margin: 0 0 10px; }
 
-/* ---------- velká čísla ---------- */
-.cisla { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
-.dlazdice {
-  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
-  padding: 15px 17px 16px; display: flex; flex-direction: column; gap: 3px;
-}
-.dlazdice b {
-  font-size: 1.55rem; font-weight: 700; letter-spacing: -.028em; line-height: 1.1;
-  color: var(--brass);
-}
-.dlazdice b.ok { color: var(--sem-ok); }
-.dlazdice b.zle { color: var(--sem-zle); }
+/* ---------- drobný text ---------- */
 .mala { font-size: .81rem; color: var(--ink-3); line-height: 1.4; }
 .mala.zle { color: var(--sem-zle); }
 .mala.ok { color: var(--sem-ok); }
@@ -234,6 +223,9 @@ dialog::backdrop { background: rgba(12,10,8,.55); }
 /* ---------- úzká obrazovka ---------- */
 @media (max-width: 820px) {
   .zahlavi { gap: 12px; }
+  .staty { width: 100%; gap: 6px 0; }
+  .stat { padding: 0 14px; }
+  .stat:first-child { padding-left: 0; }
   .termin { align-items: flex-start; }
   .radek { grid-template-columns: 1fr auto; gap: 6px 12px; }
   .radek .pruh { grid-column: 1 / -1; }
