@@ -155,3 +155,13 @@ rozhodnout je potřeba provoz, přístupová práva a zálohování.
 
 Ze stejného důvodu se **nedají nahrávat soubory faktur**. Zapisuje se číslo
 a částka, což stačí na výpočet skutečné ceny.
+
+### Pás kompletování
+
+V záhlaví vedle data předání je celá zakázka na jednom pásu. Každý dílek je
+jeden úkol, jeho šířka odpovídá plánované délce a barva stavu — zelená
+hotovo, modrá probíhá, červená po termínu, prázdná čeká. Svislá čára
+ukazuje, kde jsme dnes podle plánu.
+
+Čte se to jedním pohledem: pokud barevná část končí vlevo od čáry, zakázka
+se opozdila.

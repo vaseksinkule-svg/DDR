@@ -106,12 +106,51 @@ function viewHlavicka() {
       <span>${esc(Z.zakaznik)} · ${esc(Z.adresa)}</span>
     </span>
     <span class="grow"></span>
+    ${viewPas()}
     <span class="termin">
       <span class="spec">Předání</span>
       <b class="fig">${datumCesky(Z.predani)}</b>
       <span class="${doPredani < 0 ? "zbyva pozde" : "zbyva"}">${doPredani < 0
         ? `${Math.abs(doPredani)} ${tvar(Math.abs(doPredani), "den", "dny", "dní")} po termínu`
         : `zbývá ${doPredani} ${tvar(doPredani, "den", "dny", "dní")}`}</span>
+    </span>`;
+}
+
+/* Celé kompletování na jednom pásu. Šířka dílku odpovídá plánované
+   délce úkolu, barva jeho stavu. Svislice ukazuje, kde jsme dnes —
+   jestli je barevná část vlevo od ní, jede zakázka podle plánu. */
+function viewPas() {
+  const ukoly = Z.ukoly.slice().sort((a, b) => a.poradi - b.poradi);
+  if (!ukoly.length) return "";
+
+  const delka = u => {
+    const d = (u.od && u.do) ? Math.round((Date.parse(u.do) - Date.parse(u.od)) / 86400000) + 1 : 1;
+    return Math.max(1, d);
+  };
+  const celkem = ukoly.reduce((a, u) => a + delka(u), 0);
+
+  const dily = ukoly.map(u => {
+    const tr = u.stav === "hotovo" ? "hotovo"
+             : poTerminu(u) ? "pozde"
+             : u.stav === "probiha" ? "probiha" : "ceka";
+    const st = STAV_UKOLU[u.stav] || STAVY_UKOLU[0];
+    const titulek = `${u.poradi}. ${u.nazev} — ${poTerminu(u) ? "po termínu" : st.nazev}`;
+    return `<i class="${tr}" style="width:${(delka(u) / celkem * 100).toFixed(2)}%" title="${esc(titulek)}"></i>`;
+  }).join("");
+
+  /* poloha dneška podle plánu, ne podle skutečnosti */
+  const zac = Date.parse(ukoly[0].od || Z.zahajeni);
+  const kon = Date.parse(ukoly[ukoly.length - 1].do || Z.predani);
+  const dnes = Date.parse(dnesISO());
+  const podil = kon > zac ? Math.min(1, Math.max(0, (dnes - zac) / (kon - zac))) : 0;
+
+  const hotovo = ukoly.filter(u => u.stav === "hotovo").length;
+  const zbyva = ukoly.length - hotovo;
+
+  return `<span class="diagram" title="Průběh celé zakázky podle plánu">
+      <span class="spec">Kompletování</span>
+      <span class="pas">${dily}<i class="ted" style="left:${(podil * 100).toFixed(2)}%"></i></span>
+      <span class="popis">${hotovo} z ${ukoly.length} hotovo${zbyva ? ` · zbývá ${zbyva} ${tvar(zbyva, "úkol", "úkoly", "úkolů")}` : ""}</span>
     </span>`;
 }
 

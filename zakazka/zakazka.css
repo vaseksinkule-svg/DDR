@@ -40,6 +40,24 @@ body { font-size: 15px; }
 .zak { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .zak b { font-size: 1.05rem; font-weight: 660; letter-spacing: -.012em; }
 .zak span { font-size: .85rem; color: var(--ink-2); }
+/* ---------- pás kompletování ---------- */
+.diagram { display: flex; flex-direction: column; gap: 4px; min-width: 190px; max-width: 300px; flex: 1 1 210px; }
+.pas {
+  position: relative; display: flex; height: 11px;
+  border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+  background: var(--panel-3);
+}
+.pas i { display: block; height: 100%; box-shadow: inset -1px 0 0 var(--panel); }
+.pas i.hotovo  { background: var(--sem-ok); }
+.pas i.probiha { background: var(--sem-jede); }
+.pas i.pozde   { background: var(--sem-zle); }
+.pas i.ceka    { background: transparent; }
+.pas i.ted {
+  position: absolute; top: -2px; bottom: -2px; width: 2px; margin-left: -1px;
+  background: var(--ink); box-shadow: none; border-radius: 1px;
+}
+.diagram .popis { font-size: .76rem; color: var(--ink-3); }
+
 .termin { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 .termin b { font-size: 1rem; font-weight: 700; }
 .zbyva { font-size: .8rem; color: var(--ink-3); }
