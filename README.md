@@ -11,6 +11,7 @@ neodesílá.
 | Nástroj | Kde | K čemu je |
 |---|---|---|
 | Průvodce rekonstrukcí | `pruvodce/` | První schůzka se zákazníkem — osm etap rekonstrukce bytu, výběr stupně výbavy a průběžný rozpočet |
+| Kytara | `kytara/` | Ladička, akordy, zpěvník, tabulatury, cvičebna, skládání písní a lekce |
 
 ## Jak to otevřít
 
@@ -31,6 +32,15 @@ pruvodce/
   pruvodce.css        rozvržení obrazovky průvodce
   cenik.js            VŠECHNY ceny a nabídka — jediné místo, kde se mění
   pruvodce.js         logika a vykreslení
+kytara/
+  index.html          stránka kytary
+  kytara.css          rozvržení obrazovky
+  hudba.js            tóny, akordy, hmaty, stupnice — všechna teorie
+  zvuk.js             znějící struny, metronom, ladička
+  obsah.js            PÍSNIČKY, rytmy, tabulatury a postupy akordů
+  skola.js            LEKCE, cvičební plán a slovníček
+  kytara.js           kostra: nastavení, přepínání sekcí, diagramy
+  sekce-*.js          jednotlivé sekce aplikace
 nastroje/
   sestavit.mjs        sloučí nástroj do jednoho souboru ke sdílení
 ```
@@ -75,15 +85,47 @@ zadává počet.
 jak se rozpočet chová při výběru mezi stupni. Než se nástroj použije
 u zákazníka, je potřeba je nahradit skutečnými.
 
+## Kytara
+
+Samostatná aplikace pro hraní a učení. Osm sekcí: **ladička** (mikrofon
+i vzorové tóny), **akordy** (hmaty se pro každý akord dopočítají, včetně
+prstokladu), **hmatník** (stupnice a tóniny), **zpěvník** (text s akordy,
+transpozice, kapodastr, automatické rolování), **tabulatury** (vloží se
+odkudkoli a aplikace je přehraje libovolným tempem), **cvičebna**
+(metronom, rytmy pravé ruky, trenažér přechodů, deník), **skládání**
+(tónina, postup akordů, vlastní text) a **škola** (lekce, osmitýdenní
+plán, slovníček).
+
+Zvuk se počítá, ne přehrává z nahrávek — aplikace proto funguje offline
+a neváží nic navíc.
+
+### Kam se sahá při doplňování
+
+- `kytara/obsah.js` — písničky, rytmy, tabulatury a postupy akordů.
+  Přidat písničku znamená dopsat položku do seznamu `PISNE`; akordy se
+  píší do hranatých závorek přímo v textu (`[C]Holka modro[G7]oká`),
+  řádek začínající `#` je název části.
+- `kytara/skola.js` — texty lekcí, cvičební plán, slovníček.
+- `kytara/hudba.js` — hmaty otevřených akordů a posuvné tvary, ze kterých
+  se odvozují všechny ostatní tóniny.
+
+Vlastní písničky, tabulatury, skladby a deník cvičení se ukládají do
+prohlížeče daného zařízení — do souborů projektu se nezapisují.
+
+České značení (H, B) je výchozí, mezinárodní (B, Bb) se přepne
+v nastavení v horní liště. Tam se mění i ladění nástroje; hmaty se
+přepočítají.
+
 ## Sdílení jedním souborem
 
 Pro poslání e-mailem nebo nahrání jinam se nástroj sloučí do jediného souboru:
 
 ```bash
 node nastroje/sestavit.mjs pruvodce
+node nastroje/sestavit.mjs kytara
 ```
 
-Vznikne `vystup/pruvodce.html` se vším uvnitř. Chová se stejně jako
+Vznikne `vystup/pruvodce.html` (respektive `vystup/kytara.html`) se vším uvnitř. Chová se stejně jako
 rozdělená verze, jen se dá přenášet samostatně.
 
 ## Přidání dalšího nástroje

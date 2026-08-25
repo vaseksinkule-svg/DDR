@@ -1,0 +1,393 @@
+/* ============================================================
+   Kytara — rozvržení obrazovky
+   Tokeny a společné komponenty jsou ve ../spolecne/design.css
+   ============================================================ */
+
+/* ============================================================
+   KOSTRA
+   ============================================================ */
+.app { display: grid; grid-template-rows: auto 1fr; height: 100vh; min-height: 0; }
+
+.top {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 10px 20px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; flex-direction: column; gap: 1px; }
+.brand b { font-size: 1.05rem; font-weight: 700; letter-spacing: .02em; }
+.brand span { font-size: .69rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.top .grow { flex: 1 1 auto; }
+
+.mid { display: grid; grid-template-columns: 246px 1fr; min-height: 0; }
+.rail {
+  background: var(--panel); border-right: 1px solid var(--line);
+  overflow-y: auto; padding: 14px 0 22px;
+}
+.rail h2 { margin: 0 0 10px; padding: 0 18px; }
+.stage { overflow-y: auto; scroll-behavior: auto; }
+.stage > * { max-width: 1000px; margin-left: auto; margin-right: auto; }
+.stage > .hlava:first-child { padding-top: 26px; }
+.stage { padding: 0 26px 60px; }
+
+.railBtn {
+  display: flex; flex-direction: column; gap: 2px;
+  width: 100%; text-align: left;
+  background: none; border: 0; border-left: 3px solid transparent;
+  padding: 11px 18px 11px 15px; cursor: pointer; color: var(--ink-2);
+}
+.railBtn:hover { background: var(--panel-2); color: var(--ink); }
+.railBtn.aktivni { background: var(--accent-soft); border-left-color: var(--accent); color: var(--ink); }
+.railNazev { font-size: .98rem; font-weight: 640; }
+.railPopis { font-size: .78rem; color: var(--ink-3); line-height: 1.3; }
+
+/* nastavení v pravém rohu horní lišty */
+.nastaveni { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.nastaveni label { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--ink-3); }
+.nastaveni select, .nastaveni input[type="range"] {
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 5px 7px; font-size: .85rem; color: var(--ink); max-width: 170px;
+}
+.nastaveni input[type="range"] { width: 90px; padding: 0; }
+.prepinac { gap: 6px !important; }
+
+#btnMenu, #btnNastaveni { display: none; }
+
+/* ============================================================
+   OBECNÉ KOUSKY OBSAHU
+   ============================================================ */
+.hlava { padding: 22px 0 4px; }
+.hlava h1 { margin: 4px 0 8px; font-size: 1.95rem; font-weight: 680; letter-spacing: -.022em; line-height: 1.14; text-wrap: balance; }
+.uvod { margin: 0 0 14px; color: var(--ink-2); max-width: 68ch; }
+.drobne { font-size: .84rem; color: var(--ink-3); margin: 8px 0 0; }
+.nadpisSekce { margin: 30px 0 12px; font-size: 1.12rem; font-weight: 660; letter-spacing: -.01em; }
+.nadpisSekce .drobne { font-weight: 400; margin-left: 8px; }
+
+.panel {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 18px 20px; margin-bottom: 18px;
+}
+.svitek { overflow-x: auto; }
+
+.radaTlacitek { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 14px 0; }
+.radaVoleb { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+.radaVoleb label { display: flex; flex-direction: column; gap: 5px; font-size: .82rem; color: var(--ink-3); }
+.radaVoleb select, .radaVoleb input[type="text"], .radaVoleb input[type="number"] {
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 10px 11px; font-size: .97rem; color: var(--ink); min-width: 130px;
+}
+.radaVoleb input[type="range"] { width: 190px; }
+.siroke { display: block; margin-top: 12px; font-size: .82rem; color: var(--ink-3); }
+textarea {
+  width: 100%; margin-top: 6px;
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 12px 13px; font: inherit; font-size: .96rem; color: var(--ink); line-height: 1.55; resize: vertical;
+}
+textarea.fig { font-family: var(--fig); font-size: .9rem; line-height: 1.35; }
+.dvaSloupce { display: grid; grid-template-columns: 1fr auto; gap: 26px; align-items: start; }
+
+.btn.maly { min-height: 38px; padding: 8px 13px; font-size: .89rem; }
+.btn.aktivni { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.velky { min-height: 96px; font-size: 1.05rem; }
+.hodnota { min-width: 42px; text-align: center; font-weight: 650; }
+
+/* dlaždice pro výběr tónu a druhu akordu */
+.dlazdice { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.dl {
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 9px 13px; min-width: 46px; font-size: .95rem; font-weight: 620; cursor: pointer;
+}
+.dl:hover { border-color: var(--ink-3); }
+.dl.aktivni { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.dlazdice.druhy .dl { font-size: .88rem; font-family: var(--fig); }
+
+/* karty v seznamech */
+.seznamKaret { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.seznamKaret.uzke { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.karta {
+  display: flex; flex-direction: column; gap: 5px; text-align: left;
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 14px 16px; color: inherit; font: inherit; cursor: pointer;
+}
+.karta:hover { border-color: var(--accent); }
+.karta b { font-size: 1.04rem; font-weight: 650; }
+.karta .drobne { margin: 0; }
+.karta.hotova { border-left: 3px solid var(--accent); }
+
+/* ============================================================
+   DIAGRAM AKORDU
+   ============================================================ */
+.akordy { display: flex; flex-wrap: wrap; gap: 14px; }
+.akordKarta {
+  margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 12px 10px 8px; cursor: pointer;
+}
+.akordKarta:hover { border-color: var(--accent); }
+.akordKarta figcaption { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-bottom: 4px; }
+.akordKarta figcaption b { font-size: 1.05rem; font-weight: 660; }
+.akordKarta .zahrat { min-height: 32px; padding: 4px 10px; font-size: .8rem; }
+.akordy.male .akordKarta { padding: 8px 6px 4px; }
+
+.diagram .prazec { stroke: var(--line); stroke-width: 1.4; }
+.diagram .nulty { stroke: var(--ink); stroke-width: 4; }
+.diagram .strunaC { stroke: var(--line); stroke-width: 1.2; }
+.diagram .puntik { fill: var(--accent); }
+.diagram .barre { fill: var(--accent); }
+.diagram .prst { fill: var(--accent-ink); font-size: 10px; font-weight: 700; font-family: var(--fig); }
+.diagram .prazdna { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram .znacka { fill: var(--ink-3); font-size: 13px; }
+.diagram .cisloPrazce { fill: var(--ink-3); font-size: 11px; font-family: var(--fig); }
+.diagram .tonPod { fill: var(--ink-3); font-size: 10px; font-family: var(--fig); }
+
+/* ============================================================
+   HMATNÍK
+   ============================================================ */
+.hmatnik { display: block; }
+.hmatnik .prazec { stroke: var(--line); stroke-width: 1.4; }
+.hmatnik .nulty { stroke: var(--ink); stroke-width: 4; }
+.hmatnik .strunaC { stroke: var(--ink-3); opacity: .55; }
+.hmatnik .tecka { fill: var(--line); }
+.hmatnik .strunaJmeno { fill: var(--ink-3); font-size: 12px; font-family: var(--fig); }
+.hmatnik .znackaG circle { fill: var(--panel-3); stroke: var(--accent-line); stroke-width: 1.5; cursor: pointer; }
+.hmatnik .znackaG text { fill: var(--ink); font-size: 11px; font-family: var(--fig); pointer-events: none; }
+.hmatnik .znackaG.koren circle { fill: var(--accent); stroke: var(--accent); }
+.hmatnik .znackaG.koren text { fill: var(--accent-ink); font-weight: 700; }
+.hmatnik .znackaG:hover circle { stroke: var(--ink); }
+
+/* ============================================================
+   LADIČKA
+   ============================================================ */
+.ladDisplej { text-align: center; padding: 6px 0 2px; }
+.ladTon { font-size: 3.6rem; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
+.ladHz { font-family: var(--fig); color: var(--ink-3); font-size: .9rem; margin-top: 4px; }
+.ladSkala {
+  position: relative; height: 46px; margin: 18px auto 6px; max-width: 520px;
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+}
+.ladStred { position: absolute; left: 50%; top: 4px; bottom: 4px; width: 2px; background: var(--accent-line); }
+.ladRucicka {
+  position: absolute; top: 3px; bottom: 3px; width: 6px; margin-left: -3px;
+  background: var(--brass); border-radius: 3px; transition: left .09s linear;
+}
+.ladRucicka.sedi { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.ladRucicka.spi { opacity: .25; }
+.ladPopis { position: absolute; bottom: -20px; font-size: .72rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .1em; }
+.ladPopis.vlevo { left: 0; }
+.ladPopis.vpravo { right: 0; }
+.ladStav { margin-top: 26px; min-height: 20px; }
+
+.strunyRada { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.strunaBtn { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 92px; }
+.strunaBtn b { font-size: 1.3rem; font-weight: 700; }
+
+/* ============================================================
+   AKORDY
+   ============================================================ */
+.hledaniAkordu input {
+  width: 100%; background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 13px 14px; font-size: 1.05rem; color: var(--ink);
+}
+.hledaniAkordu input:focus { border-color: var(--accent); }
+.akordHlava { display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap; margin-bottom: 6px; }
+.akordHlava h2 { margin: 0 0 6px; font-size: 2.1rem; font-weight: 700; letter-spacing: -.02em; }
+.akordHlava > div { flex: 1 1 340px; }
+.kapoBox label { display: flex; flex-direction: column; gap: 5px; font-size: .82rem; color: var(--ink-3); max-width: 240px; margin-bottom: 12px; }
+.kapoBox select { background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r); padding: 10px 11px; font-size: .97rem; color: var(--ink); }
+
+.stupneRada { display: flex; gap: 10px; flex-wrap: wrap; }
+.stupenKarta {
+  display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left;
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 10px 14px; min-width: 132px; cursor: pointer; color: inherit; font: inherit;
+}
+.stupenKarta:hover { border-color: var(--accent); }
+.stupenKarta b { font-size: 1.2rem; font-weight: 680; }
+.stupenKarta .drobne { margin: 0; font-size: .76rem; line-height: 1.3; }
+
+/* ============================================================
+   ZPĚVNÍK
+   ============================================================ */
+.pisenHlava { display: flex; align-items: center; gap: 14px; }
+.ovladani { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ovlSkupina { display: flex; align-items: center; gap: 7px; }
+.ovlSkupina .spec { white-space: nowrap; }
+.ovlSkupina.siroka { flex: 1 1 240px; }
+.ovladani .grow { flex: 1 1 auto; }
+.ovladani select, .ovladani input[type="range"] {
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 8px 9px; font-size: .9rem; color: var(--ink);
+}
+.ovladani input[type="range"] { padding: 0; width: 150px; }
+.akordyPasu .akordy { gap: 10px; }
+.rytmusTip .vzorec {
+  display: inline-flex; gap: 5px; margin: 0 2px; vertical-align: baseline;
+  font-family: var(--fig); letter-spacing: .1em;
+}
+
+.pisen { margin: 22px 0 60px; line-height: 1.35; }
+.pisen .castPisne {
+  margin: 26px 0 10px; font-size: .74rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+}
+.pisen .radek { margin-bottom: 4px; }
+.pisen .mezera { height: 16px; }
+.slovo { white-space: nowrap; }
+.usek { display: inline-block; vertical-align: bottom; }
+.akordNad {
+  display: block; font-family: var(--fig); font-size: .82em; font-weight: 700;
+  color: var(--accent); line-height: 1.5; white-space: pre; padding: 0 6px 0 0;
+  background: none; border: 0; cursor: pointer; text-align: left;
+}
+.akordNad:hover { color: var(--brass); }
+.akordNad.prazdny { visibility: hidden; }
+.akordNad.neznamy { color: var(--ink-3); }
+.slabika { white-space: pre-wrap; }
+
+/* ============================================================
+   TABULATURY
+   ============================================================ */
+.tabBloky { margin: 18px 0 40px; }
+.tabBlok {
+  position: relative; margin-bottom: 18px; overflow-x: auto;
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r); padding: 12px 14px;
+}
+.tabBlok pre {
+  margin: 0; font-family: var(--fig); font-size: .95rem; line-height: 1.45;
+  white-space: pre; color: var(--ink);
+}
+.tabKurzor {
+  position: absolute; top: 10px; bottom: 10px; width: 2px; margin-left: 14px;
+  background: var(--brass); opacity: .85; pointer-events: none;
+}
+
+/* ============================================================
+   CVIČEBNA
+   ============================================================ */
+.doby { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; }
+.doba {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--line); background: var(--panel-2);
+}
+.doba.prvni { border-color: var(--ink-3); }
+.doba.ted { background: var(--accent); border-color: var(--accent); }
+
+.vzorec { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+.vzorec.velky .pole {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  min-width: 46px; padding: 8px 4px;
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+}
+.vzorec.velky .pole b { font-size: 1.4rem; line-height: 1; }
+.vzorec.velky .pole.slaba { opacity: .72; }
+.vzorec.velky .pole.ted { background: var(--accent-soft); border-color: var(--accent); opacity: 1; }
+
+.zmenyBox { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin: 16px 0; }
+.pocitadlo { display: flex; flex-direction: column; gap: 2px; flex: 1 1 220px; }
+.pocitadlo .cislo { font-size: 2.6rem; font-weight: 700; line-height: 1; }
+.odpocet { font-size: 2.2rem; font-weight: 700; color: var(--ink-3); min-width: 70px; text-align: center; }
+
+.sloupce { display: flex; flex-direction: column; gap: 6px; }
+.radekVysledku { display: flex; align-items: center; gap: 12px; }
+.radekVysledku .fig { min-width: 58px; font-weight: 650; }
+.pruh { flex: 0 0 140px; height: 8px; background: var(--panel-3); border-radius: 4px; overflow: hidden; }
+.pruh i { display: block; height: 100%; background: var(--accent); }
+.radekVysledku .drobne { margin: 0; }
+
+.denikShrnuti { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+.denikShrnuti div { display: flex; flex-direction: column; }
+.denikShrnuti .cislo { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.denikSeznam { margin-top: 14px; }
+
+/* ============================================================
+   SKLÁDÁNÍ
+   ============================================================ */
+.castiRada { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.takty { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.takt {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  min-width: 84px; padding: 12px 10px 10px;
+  background: var(--panel-2); border: 1.5px solid var(--line); border-radius: var(--r);
+}
+.takt.ted { background: var(--accent-soft); border-color: var(--accent); }
+.takt b { font-size: 1.2rem; font-weight: 680; cursor: pointer; }
+.takt .cisloTaktu { font-size: .64rem; }
+.takt .pryc {
+  position: absolute; top: 2px; right: 4px;
+  background: none; border: 0; color: var(--ink-3); cursor: pointer; font-size: .95rem; line-height: 1;
+}
+.takt .pryc:hover { color: var(--ink); }
+
+.kruh { display: block; margin: 0 auto; }
+.kruh .kruhPozadi { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
+.kruh .kruhPolozka circle { fill: var(--panel-2); stroke: var(--line); stroke-width: 1.5; cursor: pointer; }
+.kruh .kruhPolozka text { fill: var(--ink-2); font-size: 13px; font-weight: 640; pointer-events: none; }
+.kruh .kruhPolozka.mol circle { fill: var(--panel-3); }
+.kruh .kruhPolozka.mol text { font-size: 11px; }
+.kruh .kruhPolozka:hover circle { stroke: var(--ink-3); }
+.kruh .kruhPolozka.aktivni circle { fill: var(--accent); stroke: var(--accent); }
+.kruh .kruhPolozka.aktivni text { fill: var(--accent-ink); }
+
+/* ============================================================
+   ŠKOLA
+   ============================================================ */
+.zalozky { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 20px; }
+.lekce { max-width: 68ch; margin-bottom: 26px; }
+.lekce p { margin: 0 0 14px; line-height: 1.62; }
+.lekce h2 { margin: 26px 0 10px; font-size: 1.08rem; font-weight: 660; }
+.lekce ul { margin: 0 0 16px; padding-left: 20px; }
+.lekce li { margin-bottom: 7px; line-height: 1.55; }
+.lekce .akordy { margin-bottom: 16px; }
+.zkuste {
+  background: var(--accent-soft); border: 1.5px solid var(--accent-line); border-radius: var(--r);
+  padding: 16px 18px; margin-bottom: 18px; max-width: 68ch;
+}
+.zkuste p { margin: 4px 0 12px; }
+.zkuste .btn { margin-top: 4px; }
+
+.planMrizka { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.planKarta {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r); padding: 14px 16px;
+}
+.planKarta b { display: block; margin: 3px 0 8px; font-size: 1.02rem; font-weight: 650; }
+.planKarta ul { margin: 0; padding-left: 18px; }
+.planKarta li { font-size: .88rem; color: var(--ink-2); margin-bottom: 5px; }
+
+.slovnik { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.pojem {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--r); padding: 12px 15px;
+}
+.pojem b { display: block; margin-bottom: 3px; font-weight: 650; }
+.pojem span { font-size: .89rem; color: var(--ink-2); line-height: 1.5; }
+
+/* ============================================================
+   ÚZKÉ OBRAZOVKY
+   ============================================================ */
+@media (max-width: 900px) {
+  .mid { grid-template-columns: 1fr; }
+  .rail {
+    position: fixed; z-index: 20; inset: 0 auto 0 0; width: 264px;
+    transform: translateX(-100%); transition: transform .18s ease;
+    box-shadow: var(--shadow);
+  }
+  body.railOtevren .rail { transform: none; }
+  #btnMenu, #btnNastaveni { display: inline-flex; padding: 8px 12px; min-height: 40px; }
+  .nastaveni { display: none; }
+  body.nastaveniOtevrena .nastaveni { display: flex; }
+  .stage { padding: 0 16px 60px; }
+  .dvaSloupce { grid-template-columns: 1fr; }
+  .nastaveni { width: 100%; justify-content: flex-start; }
+  .nastaveni label { font-size: .74rem; }
+  .hlava h1 { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   TISK — vytiskne se jen text písně nebo lekce
+   ============================================================ */
+@media print {
+  .rail, .top, .noprint, .ovladani, .akordyPasu .zahrat { display: none !important; }
+  .app { height: auto; display: block; }
+  .stage { overflow: visible; padding: 0; }
+  .panel { border: 0; padding: 0; }
+  .pisen { font-size: 11pt; }
+}

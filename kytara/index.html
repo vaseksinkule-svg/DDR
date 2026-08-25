@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Kytara</title>
+<link rel="stylesheet" href="../spolecne/design.css" />
+<link rel="stylesheet" href="kytara.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <header class="top">
+    <button class="btn tise" id="btnMenu" type="button" aria-label="Sekce">☰</button>
+    <span class="brand"><b>Kytara</b><span>Hrát, učit se, skládat</span></span>
+    <span class="grow"></span>
+    <button class="btn tise" id="btnNastaveni" type="button" aria-label="Nastavení">⚙</button>
+    <div class="nastaveni" id="nastaveni"></div>
+  </header>
+
+  <div class="mid">
+    <nav class="rail" id="rail"></nav>
+    <main class="stage" id="stage"></main>
+  </div>
+
+</div>
+
+<!-- Pořadí je závazné: základ, hudební jádro, zvuk, obsah, kostra, pak sekce. -->
+<script src="../spolecne/zaklad.js"></script>
+<script src="hudba.js"></script>
+<script src="zvuk.js"></script>
+<script src="obsah.js"></script>
+<script src="skola.js"></script>
+<script src="kytara.js"></script>
+<script src="sekce-ladicka.js"></script>
+<script src="sekce-akordy.js"></script>
+<script src="sekce-hmatnik.js"></script>
+<script src="sekce-zpevnik.js"></script>
+<script src="sekce-tabulatury.js"></script>
+<script src="sekce-cvicebna.js"></script>
+<script src="sekce-skladani.js"></script>
+<script src="sekce-skola.js"></script>
+</body>
+</html>
